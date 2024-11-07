@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-analytic-2-client-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: data-analytic-2-client
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: data-analytic-2-client
+    spec:
+      containers:
+      - name: data-analytic-2-client
+        image: dockerlegenduser/data-analytic-2-client:latest

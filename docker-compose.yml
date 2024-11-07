@@ -1,0 +1,36 @@
+version: '3'
+services:
+  data-stream-1-server:
+    build:
+      context: ./Microservice_1_Data_Collection/
+      dockerfile: Server.Dockerfile
+    ports:
+      - "50051:50051"
+  data-stream-2-server:
+    build:
+      context: ./Microservice_1_Data_Collection_2nd_Source/
+      dockerfile: Server.Dockerfile
+    ports:
+      - "50059:50059"
+  web-server:
+    build:
+      context: ./Microservices_3_Data_Visualisation/
+      dockerfile: WebServer.Dockerfile
+    ports:
+      - "40051:40051"
+  data-analytic-1-client:
+    build:
+      context: ./Microservice_2_Data_Analytics/
+      dockerfile: Client.Dockerfile
+    depends_on:
+      - "data-stream-1-server"
+      - "web-server"
+    command: ["./wait-for-it.sh", "data-stream-1-server:50051", "--", "./wait-for-it.sh", "web-server:40051", "--" , "python", "-u", "data_stream_client.py"]
+  data-analytic-2-client:
+    build:
+      context: ./Microservice_2_Data_Analytics_2nd_Source/
+      dockerfile: Client.Dockerfile
+    depends_on:
+      - "data-stream-2-server"
+      - "web-server"
+    command: ["./wait-for-it.sh", "data-stream-2-server:50059", "--", "./wait-for-it.sh", "web-server:40051", "--" , "python", "-u", "data_stream_client.py"]

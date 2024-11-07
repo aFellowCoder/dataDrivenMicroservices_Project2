@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-stream-2-server-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: data-stream-2-server
+  minReadySeconds: 6
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: data-stream-2-server
+    spec:
+      containers:
+      - name: data-stream-2-server
+        image: dockerlegenduser/data-stream-2-server:latest
+        ports:
+        - containerPort: 50059

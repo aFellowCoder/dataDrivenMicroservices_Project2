@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package data_stream;
+
+service dataStream {
+
+  rpc ListFeatures(HelloRequest) returns (stream Game) {}
+
+  rpc SendFeatures(stream Game) returns (HelloRequest) {}
+
+  rpc SendOneFeature(AnalysedData) returns (HelloRequest) {}
+
+
+}
+
+message Game {
+  string name = 1;
+  string platform = 2;
+  string developer = 3;
+  string publisher = 4;
+  string genre = 5;
+  string releaseDate = 6;
+  int32 criticPositive = 7;
+  int32 criticNeutral = 8;
+  int32 criticNegative = 9;
+  int32 metascore = 10;
+
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message AnalysedData {
+  repeated int32 analytic1 = 1;
+  repeated string analytic2 = 2;
+  repeated string analytic3 = 3;
+  repeated int32 analytic4 = 4;
+  string date = 5;
+  repeated int32 analytic4a = 6;
+  repeated int32 analytic4b = 7;
+  repeated int32 analytic4c = 8;
+
+
+
+}

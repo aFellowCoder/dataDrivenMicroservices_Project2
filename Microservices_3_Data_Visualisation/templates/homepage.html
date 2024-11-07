@@ -1,0 +1,416 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+<head>
+  <meta http-equiv="refresh" content="4">
+  <title>Game Ratings</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<style>
+
+#platforms {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin: 5px;
+}
+
+#platforms td, #platforms th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#platforms tr{background-color: #CFD5EA;}
+
+#platforms tr:hover {background-color: #ddd;}
+
+#platforms th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4472C4;
+  color: white;
+}
+
+.square {
+  float: left;
+  width: 15px;
+  margin-bottom: 10px;
+  height: 15px;
+  clear: both;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
+</style>
+
+</head>
+<body>
+<h1 style="font-family:Helvetica;">Metacritic Games Analysis</h1>
+<h2 style="font-family:Helvetica; padding-left:175px;">Data from: 31 Aug 1995 - {{ data[0][4] }}</h2>
+
+
+
+<table id = "platforms">
+  <caption>Total Number of Must-Play Titles per Video Game Platform (all gens)</caption>
+  <tr>
+    <th style="width:60%">Platform</th>
+    <th>Total</th>
+  </tr>
+
+  <tr>
+    <td>Playstation</td>
+    <td>{{data[0][0][0]}}</td>
+</tr>
+
+    <tr>
+    <td>Xbox</td>
+    <td>{{data[0][0][1]}}</td>
+</tr>
+
+    <tr>
+    <td>Nintendo</td>
+    <td>{{data[0][0][2]}}</td>
+</tr>
+
+    <tr>
+    <td>PC</td>
+    <td>{{data[0][0][3]}}</td>
+  </tr>
+</table>
+
+<p></p>
+
+<table id = "platforms">
+  <caption>Most Loved Genre per Video Game Platform (all gens)</caption>
+  <tr>
+    <th style="width:60%">Platform</th>
+    <th>Genre</th>
+  </tr>
+
+  <tr>
+    <td>Playstation</td>
+    <td>{{data[0][2][0]}}</td>
+</tr>
+
+    <tr>
+    <td>Xbox</td>
+    <td>{{data[0][2][1]}}</td>
+</tr>
+
+    <tr>
+    <td>Nintendo</td>
+    <td>{{data[0][2][2]}}</td>
+</tr>
+
+    <tr>
+    <td>PC</td>
+    <td>{{data[0][2][3]}}</td>
+  </tr>
+
+</table>
+
+<p></p>
+
+<table id = "platforms">
+  <caption>Lowest scoring Metacritic game per Video Game Platform</caption>
+  <tr>
+    <th>Platform</th>
+    <th style="width:70%">Title</th>
+    <th>Metascore</th>
+  </tr>
+
+  <tr>
+    <td>Playstation</td>
+    <td>{{data[0][1][0]}}</td>
+    <td>{{data[0][1][1]}}</td>
+</tr>
+
+    <tr>
+    <td>Xbox</td>
+    <td>{{data[0][1][2]}}</td>
+    <td>{{data[0][1][3]}}</td>
+</tr>
+
+    <tr>
+    <td>Nintendo</td>
+    <td>{{data[0][1][4]}}</td>
+    <td>{{data[0][1][5]}}</td>
+</tr>
+
+    <tr>
+    <td>PC</td>
+    <td>{{data[0][1][6]}}</td>
+    <td>{{data[0][1][7]}}</td>
+  </tr>
+
+</table>
+
+<p></p>
+
+<table id = "platforms">
+  <caption>Average metascore of Exclusives (all gens (3 minute rolling average))</caption>
+  <tr>
+    <th style="width:60%">Platform</th>
+    <th>Metascore</th>
+  </tr>
+
+  <tr>
+    <td>Playstation</td>
+    <td>{{data[0][3][1]}}</td>
+</tr>
+
+    <tr>
+    <td>Xbox</td>
+    <td>{{data[0][3][2]}}</td>
+</tr>
+
+    <tr>
+    <td>Nintendo</td>
+    <td>{{data[0][3][0]}}</td>
+</tr>
+
+</table>
+
+
+<canvas id="myChart" style="width:100%;max-width:900px"></canvas>
+
+<script>
+var xValues = [0.1,0.2,0.3,0.4,0.5,1,1.1,1.2,1.3,1.4,1.5,2,2.1,2.2,2.3,2.4,2.5,3];
+var NintendoValues = {{data[0][5]}};
+var PlaystationValues = {{data[0][6]}};
+var XboxValues = {{data[0][7]}};
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(255,17,17,0.8)",
+      borderColor: "rgba(255,17,17,0.2)",
+      data: NintendoValues
+    }, {
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.2)",
+      data: PlaystationValues
+    }, {
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,218,2,0.8)",
+      borderColor: "rgba(0,218,2,0.2)",
+      data: XboxValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 0, max:100}}],
+    }
+  }
+});
+</script>
+<div><div class='square red'></div>= Nintendo</div>
+<br>
+<div><div class='square green'></div>= Playstation</div>
+<br>
+<div><div class='square blue'></div>= Xbox</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1 style="font-family:Helvetica;">Video Game Sales Analysis</h1>
+<h2 style="font-family:Helvetica; padding-left:175px;">Data from: 1980 - {{ data[1][4] }}</h2>
+
+
+
+<table id = "platforms">
+  <caption>Total number of game sales in Japan</caption>
+  <tr>
+    <th style="width:60%">Region</th>
+    <th>Total (in millions)</th>
+  </tr>
+
+  <tr>
+    <td>Japan</td>
+    <td>{{data[1][0]}}</td>
+</tr>
+
+
+
+
+</table>
+
+<p></p>
+
+<table id = "platforms">
+  <caption>Genre with the most sales (where the game is kid friendly)</caption>
+  <tr>
+    <th style="width:60%">Genre</th>
+    <th>Sales (in millions)</th>
+  </tr>
+
+  <tr>
+    <td>{{data[1][2][0]}}</td>
+    <td>{{data[1][2][1]}}</td>
+</tr>
+
+
+
+
+</table>
+
+<p></p>
+
+<table id = "platforms">
+  <caption>Year with the most game sales (worldwide)</caption>
+  <tr>
+    <th style="width:70%">Year</th>
+    <th>Sales (in millions)</th>
+  </tr>
+
+  <tr>
+    <td>{{data[1][3][0]}}</td>
+    <td>{{data[1][3][1]}}</td>
+</tr>
+
+
+</table>
+
+<br>
+<br>
+<p style="font-family:Helvetica;padding-left:175px;">Average game sales of shooters (3-minute rolling metric) (in millions)</p>
+
+<canvas id="myChartSource2" style="width:100%;max-width:900px"></canvas>
+
+<script>
+var xValuesSource2 = [0.1,0.2,0.3,0.4,0.5,1,1.1,1.2,1.3,1.4,1.5,2,2.1,2.2,2.3,2.4,2.5,3];
+var avgGameSalesofShooters = {{data[1][1]}};
+
+new Chart("myChartSource2", {
+  type: "line",
+  data: {
+    labels: xValuesSource2,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(255,17,17,0.8)",
+      borderColor: "rgba(255,17,17,0.2)",
+      data: avgGameSalesofShooters
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 0, max:30}}],
+    }
+  }
+});
+</script>
+<br>
+<p style="font-family:Helvetica;padding-left:175px;">Average = {{data[1][5]}} </p>
+
+
+</body>
+</html>

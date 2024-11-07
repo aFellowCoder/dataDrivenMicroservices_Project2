@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package data_stream2;
+
+service dataStream2 {
+
+  rpc ListFeatures(HelloRequest) returns (stream GameSales) {}
+
+  rpc SendFeatures(stream GameSales) returns (HelloRequest) {}
+
+  rpc SendOneFeature(AnalysedData) returns (HelloRequest) {}
+
+
+}
+
+message GameSales {
+  string name = 1;
+  string platform = 2;
+  string releaseYear = 3;
+  string genre = 4;
+  float americaSales = 5;
+  float euSales = 6;
+  float jpSales = 7;
+  float otherSales = 8;
+  float globalSales = 9;
+  string rating = 10;
+
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message AnalysedData {
+  float analytic1 = 1;
+  repeated float analytic2 = 2;
+  repeated string analytic3 = 3;
+  repeated string analytic4 = 4;
+  string date = 5;
+  float analytic2b = 6;
+}

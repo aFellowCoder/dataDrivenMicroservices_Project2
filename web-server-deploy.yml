@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server-deploy
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: web-server
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+      - name: web-server
+        image: dockerlegenduser/web-server:latest
+        ports:
+        - containerPort: 40051
